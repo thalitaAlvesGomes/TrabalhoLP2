@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="CDTT">
-    <link rel="stylesheet" href="style.css">
-    <title>Lista de Fornecedores</title>
+    <link rel="stylesheet" href="styleList.css">
+    <title>Requisições</title>
 </head>
 
 
@@ -32,21 +32,17 @@ if ($_SESSION['tipoUsuario'] == 1) {
                         <p><b>Código</b></p>
                     </td>
                     <td class="coluna">
-                        <p><b>Razão Social</b></p>
+                        <p><b>Produto</b></p>
                     </td>
                     <td class="coluna">
-                        <p><b>CNPJ</b></p>
+                        <p><b>Quantidade</b></p>
                     </td>
                     <td class="coluna">
-                        <p><b>Telefone</b></p>
-                    </td>
-                    <td class="coluna">
-                        <p><b>Endereço</b></p>
+                        <p><b>Requerente</b></p>
                     </td>
                     <td class="coluna">
                         <p><b>Outras Ações</b></p>
                     </td>
-
                 </tr>
 
 
@@ -54,58 +50,45 @@ if ($_SESSION['tipoUsuario'] == 1) {
 
                 <?php
                 require_once "../conexao.php";
-                $sql = "SELECT * from fornecedores";
+                $sql = "SELECT * from requisicao";
                 $resultado = $conexao->query($sql);
                 $dados = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-                foreach ($dados as $row) {
+                foreach ($dados as $row) { //pega cada registro do array para mostrar na tela
                     ?>
 
                     <tr class="linha">
                         <td class="coluna">
                             <?php
-                            echo "<p>" . $row['codigo'] . "</p>
+                            echo "<p>" . $row['codRequisicao'] . "</p>
                         </td>";
                             ?>
 
 
                         <td class="coluna">
                             <?php
-                            echo "<p>" . $row['razaoSocial'] . "</p>
+                            echo "<p>" . $row['produtoCod'] . "</p>
                         </td>";
                             ?>
 
                         <td class="coluna">
                             <?php
-                            echo "<p>" . $row['CNPJ'] . "</p>
+                            echo "<p>" . $row['quantidade'] . "</p>
                          </td>";
                             ?>
 
                         <td class="coluna">
                             <?php
-                            echo "<p>" . $row['telefone'] . "</p>
+                            echo "<p>" . $row['userReq'] . "</p>
                         </td>";
                             ?>
-                        <td class="coluna">
-                            <?php
-                            echo "<p>" . $row['endereco'] . "</p>
-                        </td>";
-                            ?>
-
-                        <td class="coluna">
-
                        
-
-                   
-                        <?php
-                        echo "<a href='editarFornec.php?codigo=$row[codigo]'> <button class='editar' type='button'>Editar</button></a>";
-                      ?>
-
+                        <td class="coluna">
+                    
+                        
                         &nbsp;&nbsp;&nbsp;
-                       
-                        <?php 
-                        echo "<a href='excluirFornec.php?codigo=$row[codigo]'><button class='excluir' type='button'>Excluir</button></a>"; 
-                         ?>
+
+                           <?php echo "<a href='excluirRequisicao.php?codRequisicao=$row[codRequisicao]'><button class='excluir' type='button'>Excluir</button></a>";?>
 
 
                         </td>
@@ -118,8 +101,8 @@ if ($_SESSION['tipoUsuario'] == 1) {
                 ?>
 
 
-                <form method="get" action="CadastroFor.php">
-                    <button class="newForn">Novo Fornecedor</button>
+                <form method="get" action="requerir.php">
+                    <button class="newForn" >Nova Requisição</button>
                 </form>
 
 

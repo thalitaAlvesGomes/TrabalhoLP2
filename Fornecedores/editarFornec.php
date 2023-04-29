@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilocad.css">
-    <title>Cadastro de Fornecedores</title>
+    <title>Editar Fornecedor</title>
 </head>
 
 <header class="topo">
@@ -23,17 +23,17 @@
 session_start();
 if ($_SESSION['tipoUsuario'] == 1) {
 
-//pegar o id do fornecedor a ser editado
+
 if(isset($_GET['codigo'])) {
     $var_codigo = $_GET['codigo'];
     try{
-        //selecionar o id a ser editado
+       
         require_once "../conexao.php";
         $sql = "SELECT * from fornecedores where codigo=$var_codigo";
         $resultado = $conexao->query($sql);
         $dados = $resultado->fetchAll(PDO::FETCH_ASSOC);
         foreach ($dados as $row) {
-            //mostrar na tela os dados do fornecedor registrado
+           
     ?>
 
 

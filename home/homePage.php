@@ -19,8 +19,10 @@
         
         <ul>
             <li><i  class="	fa fa-home fa-2x"></i> <a href="#" class="active"> Principal </a> </li>
-            <li><i class="	fa fa-edit fa-2x"></i> <a href="../Produtos/CadProdutos.php"> Produtos</a> </li>
+            <li><i class="	fa fa-edit fa-2x"></i> <a href="../Produtos/listarProdutos.php"> Produtos</a> </li>
+            <li><i class="	fa fa-chevron-circle-right fa-2x"></i> <a href="../TipoProduto/listaTipoProd.php"> Tipos de Produto</a> </li>
             <li><i class="	fa fa-users fa-2x"></i><a href="../Fornecedores/listaForn.php"> Fornecedores</a> </li>
+            <li><i class="	fa fa-plus fa-2x"></i><a href="../Requisicao/listaRequisicao.php"> Requisiçao</a> </li>
             <li><i class="	fa fa-file-text-o fa-2x"></i> <a href="#"> Relatórios</a> </li>
             <li><i class="  fa fa-cog fa-2x"></i><a href="#"> Configurações</a></li>
             <li><i class=" fa fa-sign-out fa-2x"></i><a href="../Login/telaLogin.php"> Sair</a></li>

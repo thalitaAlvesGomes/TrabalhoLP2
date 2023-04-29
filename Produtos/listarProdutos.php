@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="CDTT">
-    <link rel="stylesheet" href="style.css">
-    <title>Lista de Fornecedores</title>
+    <link rel="stylesheet" href="listProd.css">
+    <title>Lista de Produtos</title>
 </head>
 
 
@@ -32,80 +32,77 @@ if ($_SESSION['tipoUsuario'] == 1) {
                         <p><b>Código</b></p>
                     </td>
                     <td class="coluna">
-                        <p><b>Razão Social</b></p>
+                        <p><b>Descrição</b></p>
                     </td>
                     <td class="coluna">
-                        <p><b>CNPJ</b></p>
+                        <p><b>Tipo de Produto</b></p>
                     </td>
                     <td class="coluna">
-                        <p><b>Telefone</b></p>
+                        <p><b>Código Fornecedor</b></p>
                     </td>
                     <td class="coluna">
-                        <p><b>Endereço</b></p>
+                        <p><b>Saldo</b></p>
+                    </td>
+                    <td class="coluna">
+                        <p><b>Unidade</b></p>
                     </td>
                     <td class="coluna">
                         <p><b>Outras Ações</b></p>
                     </td>
-
                 </tr>
-
-
-
 
                 <?php
                 require_once "../conexao.php";
-                $sql = "SELECT * from fornecedores";
+                $sql = "SELECT * from produtos";
                 $resultado = $conexao->query($sql);
                 $dados = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-                foreach ($dados as $row) {
+                foreach ($dados as $row) { 
                     ?>
 
                     <tr class="linha">
                         <td class="coluna">
                             <?php
-                            echo "<p>" . $row['codigo'] . "</p>
+                            echo "<p>" . $row['codigoProd'] . "</p>
                         </td>";
                             ?>
 
 
                         <td class="coluna">
                             <?php
-                            echo "<p>" . $row['razaoSocial'] . "</p>
+                            echo "<p>" . $row['descricao'] . "</p>
                         </td>";
                             ?>
 
                         <td class="coluna">
                             <?php
-                            echo "<p>" . $row['CNPJ'] . "</p>
+                            echo "<p>" . $row['tipoProd'] . "</p>
                          </td>";
                             ?>
 
                         <td class="coluna">
                             <?php
-                            echo "<p>" . $row['telefone'] . "</p>
-                        </td>";
+                            echo "<p>" . $row['codFornecedor'] . "</p>
+                         </td>";
                             ?>
+
                         <td class="coluna">
                             <?php
-                            echo "<p>" . $row['endereco'] . "</p>
+                            echo "<p>" . $row['saldo'] . "</p>
                         </td>";
                             ?>
-
+                        
                         <td class="coluna">
-
-                       
-
-                   
                         <?php
-                        echo "<a href='editarFornec.php?codigo=$row[codigo]'> <button class='editar' type='button'>Editar</button></a>";
-                      ?>
+                            echo "<p>" . $row['unidade'] . "</p>
+                        </td>";
+                            ?>
+                       <td class="coluna">
+                        <?php echo "<a href='editarProduto.php?codigoProd=$row[codigoProd]'><button class='editar' type='button'>Editar</button></a>";?>
 
                         &nbsp;&nbsp;&nbsp;
-                       
-                        <?php 
-                        echo "<a href='excluirFornec.php?codigo=$row[codigo]'><button class='excluir' type='button'>Excluir</button></a>"; 
-                         ?>
+
+                           <?php echo "<a href='excluirProduto.php?codigoProd=$row[codigoProd]'><button class='excluir' type='button'>Excluir</button></a>";?>
 
 
                         </td>
@@ -118,15 +115,15 @@ if ($_SESSION['tipoUsuario'] == 1) {
                 ?>
 
 
-                <form method="get" action="CadastroFor.php">
-                    <button class="newForn">Novo Fornecedor</button>
+                <form method="get" action="CadProdutos.php">
+                    <button class="new" >Novo Produto</button>
                 </form>
 
 
     </body>
 
     <?php
-} // fim do if
+} 
 
 ?>
 

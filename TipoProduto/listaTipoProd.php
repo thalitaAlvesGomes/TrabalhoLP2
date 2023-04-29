@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="CDTT">
-    <link rel="stylesheet" href="style.css">
-    <title>Lista de Fornecedores</title>
+    <link rel="stylesheet" href="listaTipoProd.css">
+    <title>Tios de Produto</title>
 </head>
 
 
@@ -32,16 +32,7 @@ if ($_SESSION['tipoUsuario'] == 1) {
                         <p><b>Código</b></p>
                     </td>
                     <td class="coluna">
-                        <p><b>Razão Social</b></p>
-                    </td>
-                    <td class="coluna">
-                        <p><b>CNPJ</b></p>
-                    </td>
-                    <td class="coluna">
-                        <p><b>Telefone</b></p>
-                    </td>
-                    <td class="coluna">
-                        <p><b>Endereço</b></p>
+                        <p><b>Descrição</b></p>
                     </td>
                     <td class="coluna">
                         <p><b>Outras Ações</b></p>
@@ -54,11 +45,11 @@ if ($_SESSION['tipoUsuario'] == 1) {
 
                 <?php
                 require_once "../conexao.php";
-                $sql = "SELECT * from fornecedores";
+                $sql = "SELECT * from tipo_produto";
                 $resultado = $conexao->query($sql);
                 $dados = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-                foreach ($dados as $row) {
+                foreach ($dados as $row) { //pega cada registro do array para mostrar na tela
                     ?>
 
                     <tr class="linha">
@@ -71,41 +62,17 @@ if ($_SESSION['tipoUsuario'] == 1) {
 
                         <td class="coluna">
                             <?php
-                            echo "<p>" . $row['razaoSocial'] . "</p>
+                            echo "<p>" . $row['descricao'] . "</p>
                         </td>";
                             ?>
 
                         <td class="coluna">
-                            <?php
-                            echo "<p>" . $row['CNPJ'] . "</p>
-                         </td>";
-                            ?>
-
-                        <td class="coluna">
-                            <?php
-                            echo "<p>" . $row['telefone'] . "</p>
-                        </td>";
-                            ?>
-                        <td class="coluna">
-                            <?php
-                            echo "<p>" . $row['endereco'] . "</p>
-                        </td>";
-                            ?>
-
-                        <td class="coluna">
-
-                       
-
-                   
-                        <?php
-                        echo "<a href='editarFornec.php?codigo=$row[codigo]'> <button class='editar' type='button'>Editar</button></a>";
-                      ?>
+                    
+                        <?php echo "<a href='editarTipoProd.php?codigo=$row[codigo]'><button class='editar' type='button'>Editar</button></a>";?>
 
                         &nbsp;&nbsp;&nbsp;
-                       
-                        <?php 
-                        echo "<a href='excluirFornec.php?codigo=$row[codigo]'><button class='excluir' type='button'>Excluir</button></a>"; 
-                         ?>
+
+                        <?php echo "<a href='excluirTipoProd.php?codigo=$row[codigo]'><button class='excluir' type='button'>Excluir</button></a>";?>
 
 
                         </td>
@@ -118,8 +85,8 @@ if ($_SESSION['tipoUsuario'] == 1) {
                 ?>
 
 
-                <form method="get" action="CadastroFor.php">
-                    <button class="newForn">Novo Fornecedor</button>
+                <form method="get" action="cadastroTipoProd.php">
+                    <button class="new" >Novo Categoria</button>
                 </form>
 
 

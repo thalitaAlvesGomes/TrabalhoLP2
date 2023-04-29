@@ -15,7 +15,7 @@
         require_once "../conexao.php";
         try
             {   
-                //vamos atualizar na tabela
+               
                 $sql="update fornecedores set 
                     razaoSocial ='$var_razao',
                     CNPJ ='$var_cnpj',
@@ -28,10 +28,10 @@
             }
         catch (PDOException $i)
         {
-            //se houver exceção, exibe
+           
             die("Erro: <code>" . $i->getMessage() . "</code>");
         }
     }
-    //fim do if
+    
     }
     ?>

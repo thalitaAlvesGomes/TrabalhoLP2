@@ -1,127 +1,125 @@
 <!DOCTYPE html>
-<html lang="pt=br">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cadProd.css">
     <title>Cadastro de Produtos</title>
 </head>
+
 <?php
-    session_start();
-    if ($_SESSION['tipoUsuario'] == 1) {
-?>
-<header class="cabecalho">
+session_start();
+if ($_SESSION['tipoUsuario'] == 1) {
+    ?>
 
-    <nav class="menuCabecalho">
-        <a class="back" href="../home/homePage.php">Voltar</a>
-        <p class="logo">estoque.com </p>
-        <a class="out" href="../Login/telaLogin.php">Sair</a>
-    </nav>
+    <header class="topo">
 
-</header>
+        <nav class="menuCabecalho">
+            <a class="back" href="listarProdutos.php">Voltar</a>
+            <p class="logo">estoque.com </p>
+            <a class="out" href="../Login/telaLogin.php">Sair</a>
+        </nav>
 
-<div id="listaProdutos">
-    <br>
-    <div class="cadastroProd">
-        <h2>CADASTRO DE PRODUTOS</h2>
-    </div>
-    <br>
+    </header>
 
-    <body page="lista">
+    <body>
 
-        <table class="tabelaLista">
-            <thead>
-                <tr>
-                    <th class="colunas">Código</th>
-                    <th class="colunas">Nome</th>
-                    <th class="colunas">Valor Atacado</th>
-                    <th class="colunas">Valor Varejo</th>
-                    <th class="colunas">Quantidade</th>
-                    <th class="colunas">Outras Ações</th>
-                </tr>
+        <br>
+        <div class="formulario">
+            <div class="cadastroProd">
+                <h2>DADOS DO PRODUTO</h2>
+            </div>
+            <br>
+            <form name="dadosProd" action="novoProduto.php" method="post">
+                <table>
+                    <tr>
 
-            </thead>
-            <tbody id="listaProdutosBody"></tbody>
-        </table>
+                        <td>
+                            <div class="nomecam"><label for="descricao">Descrição&nbsp;</label></div>
+                            <div class="alinha"><input type="text" maxlength="100" size="90" id="descricao" name="descricao"
+                                    required>&nbsp;&nbsp;&nbsp;<br>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="linha">
+                                <div class="nomecam"><label for="tipoProd">Tipo do Produto &nbsp; </label></div>
+                                <div class="alinha">
+                                    <select name="tipoProd" required>
+                                        <?php
+                                        require_once "../conexao.php";
+                                        $sql = "SELECT * from tipo_produto order by descricao";
+                                        $resultado = $conexao->query($sql);
+                                        $dados = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                                        foreach ($dados as $linha) { //pega cada registro do array para mostrar na tela
+                                            echo "<option value='$linha[codigo]'> 
+                                $linha[descricao]</option>";
+                                        }
+                                        ?>
+                                    </select>&nbsp;&nbsp;&nbsp;
+                                </div>
 
-        <br><br>
-        <div>
-            <br><br>
-            <button class="NovoProd" onclick="vizualizar('cadastro', true)">Novo produto</button>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+
+                <table>
+                    <tr>
+                        <td>
+                            <div class="linha">
+                                <div class="nomecam"><label for="codFornecedor">Fornecedor &nbsp; </label></div>
+                                <div class="alinha"> <select name="codFornecedor" required>
+                                        <?php
+                                        require_once "../conexao.php";
+                                        $sql = "SELECT * from fornecedores order by razaoSocial";
+                                        $resultado = $conexao->query($sql);
+                                        $dados = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                                        foreach ($dados as $linha) { //pega cada registro do array para mostrar na tela
+                                            echo "<option value='$linha[codigo]'> 
+                                $linha[razaoSocial]</option>";
+                                        }
+                                        ?>
+                                    </select>&nbsp;&nbsp;&nbsp;</div>
+
+                        </td>
+
+                        <td>
+                            <div class="linha">
+                                <div class="nomecam"><label for="saldo">Saldo &nbsp; </label></div>
+                                <div class="alinha"><input type="text" maxlength="20" size="20" id="saldo" name="saldo"
+                                        required>
+                                    &nbsp;&nbsp;&nbsp;</div>
+                        </td>
+
+                        <td>
+                            <div class="linha">
+                                <div class="nomecam"><label for="unidade">Unidade de Medida &nbsp; </label></div>
+                                <div class="alinha"><input type="text" maxlength="20" size="20" id="unidade" name="unidade"
+                                        required>
+                                    &nbsp;&nbsp;&nbsp;</div>
+                        </td>
+
+                    </tr>
+                </table>
+                <br>
+
+
+
+
+
+                <input type="submit" id="confirm" value="Confirmar">
+
+
+            </form>
+
         </div>
 
-</div>
+    </body>
 
-<form id="cadastroProdutos">
-    <div class="cadastroProd">
-        <h2>CADASTRO DE PRODUTOS</h2>
-    </div>
+    <?php
+}
+?>
 
-    <table class="preenchimentos">
-        <tr> 
-            <td  class="linhaPreenchimentos">
-                <div class="label">
-                    <div>Código</div>
-                    <div>
-                        <input type="text" maxlength="6" size="10" id="id">
-                    </div>
-                </div>
-            </td>
-            <td class="linhaPreenchimentos">
-                <div class="label">
-                    <div>Descrição</div>
-                    <div>
-                        <input type="text" size="90" id="descricao" >
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-           
-    <table class="preenchimentos">
-        <tr>
-            <td  class="linhaPreenchimentos">
-                <div class="label">
-                    <div>Tipo de Produto</div>
-                    <div>
-                        <input type="text" id="tipoProd" size="10" >
-                    </div>
-                </div>
-            </td>
-            <td  class="linhaPreenchimentos">
-                <div class="label">
-                    <div>Unidade</div>
-                    <div>
-                        <input type="text" id="unidade" size="10"  >
-                    </div>
-                </div>
-            </td>
-            <td  class="linhaPreenchimentos">
-                <div class="label">
-                    <div>Saldo</div>
-                    <div>
-                        <input type="number" id="saldo" size="10" >
-                    </div>
-                </div>
-            </td>
-        </tr>   
-
-    </table>
-
-    <div>
-        <input class="botCad" type="submit" value="Cadastrar">
-    </div>
-
-</form>
-
-
-</body>
- 
-<?php
-    } else
-    echo "<p>Você não tem permissão 
-    para executar esta ação.</p>";
-?> 
 </html>

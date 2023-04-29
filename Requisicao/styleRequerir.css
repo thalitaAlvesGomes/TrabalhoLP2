@@ -45,6 +45,7 @@
 }
 
 
+
 body{
     background-image: radial-gradient(rgba(40, 147, 218, 0.801), rgba(8, 99, 160, 0.897));
     width: auto;
@@ -119,7 +120,5 @@ span {
     font-size: 1.0rem;
     font-family: 'Sarala', sans-serif;      
 }
-
-
 
     
