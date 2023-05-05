@@ -1,7 +1,7 @@
 <?php
    
     session_start();
-    if ($_SESSION['tipoUsuario'] == 1) {
+    if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) {
         if(isset($_POST['codigo'])&&
         isset($_POST['descricao'])){
 
@@ -22,10 +22,12 @@
            
             die("Erro: <code>" . $i->getMessage() . "</code>");
         }
-    }
+    }else {
+        echo "<script>alert('Nenhuma categoria selecionada, por favor selecione um registro válido'); window.location.href='listaTipoProd.php'</script>";
+           }
 
-    }else
-    echo "<p>Você não tem permissão 
-    para executar esta ação.</p>";
-   
+    }else if ($_SESSION['tipoUsuario'] == 3){
+        echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='listaTipoProd.php'</script>";
+    } else header("location: ../usuarioNaoLogado.php");
+    
     ?>

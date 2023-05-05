@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Sarala&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+.topo{
+    background-color: rgba(6, 68, 110, 0.39);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 24px;
+    height: auto;
+
+        
+    }
+.menuCabecalho {
+    display: flex;
+    gap: 300px;
+}
+
+.voltar {
+    font-family: 'Sarala', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #FFF2E7;
+}
+
+.sair  {
+    font-family: 'Sarala', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #FFF2E7;
+   
+} 
+
+.logo{ 
+    font-family: 'Righteous', cursive;
+    font-size: 18px;
+    font-weight: 400;
+    color: #FFF2E7;
+}
+
+
+body{
+    background-image: radial-gradient(rgba(40, 147, 218, 0.801), rgba(8, 99, 160, 0.897));
+    width: auto;
+    height: auto;  
+    margin-top: 0%;
+}    
+
+
+form {
+    align-items: center; 
+    margin-left: 5%;
+    font-size: 100%;
+    font-family: 'Sarala', sans-serif;  
+    font: bold;
+    color: rgb(255, 255, 255); 
+}
+
+.formulario{
+    margin-top: 10px; 
+    margin-left: 25%;
+    margin-right: 25%;
+    font-size: 100%;
+    font-family: 'Sarala', sans-serif;  
+    font: bold;
+    color: rgb(255, 255, 255);
+    border: none;
+
+
+}
+input:focus, label:focus{
+    outline: none;
+}
+input{
+    
+    height: 25px;
+    border: none;
+    background-clip: border-box gray;
+    background-color: rgba(247, 247, 247, 0.459);
+    border-radius: 5px;
+    
+}
+input::placeholder{
+    text-align: center;
+    color: rgba(48, 48, 48, 0.349);
+}
+ input[type="submit"]{
+    font-family: 'Sarala', sans-serif;  
+    font-size: 12px;
+    color: #FFF2E7;
+    background-color: rgb(0, 80, 146);
+    border:none;
+    border-radius: 10px;
+    height: 40px;
+    width: 80px;
+    cursor: pointer;
+    display: block;
+    flex-direction: row;
+    margin-block-start: 2%;
+    margin-block-end: 2%;
+   
+ }
+
+.cadastroFornec {
+
+    margin-top: 40px;
+    text-align: center;
+    font-family: 'Sarala', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #FFF2E7;
+}
+
+
+
+
+
+
+    

@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styleCadTipo.css">
+    <link rel="stylesheet" href="../estilos/tipoProduto/cadTipoProd.css">
     <title>Nova Categoria</title>
 </head>
 
 <?php
 session_start();
-if ($_SESSION['tipoUsuario'] == 1) {
+if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) {
     ?>
 
     <header class="topo">
 
         <nav class="menuCabecalho">
-            <a class="back" href="listaTipoProd.php">Voltar</a>
+            <a class="voltar" href="listaTipoProd.php">Voltar</a>
             <p class="logo">estoque.com </p>
-            <a class="out" href="../Login/telaLogin.php">Sair</a>
+            <a class="sair" href="../Login/logout.php">Sair</a>
         </nav>
 
     </header>
@@ -27,10 +27,11 @@ if ($_SESSION['tipoUsuario'] == 1) {
     <body>
 
         <br>
-        <div class="formulario">
-            <div class="cadastroTipoProd">
-                <h2>Incluir Nova Categoria</h2>
+        <div class="cadastroTipoProd">
+                <h2>INCLUIR NOVA CATEGORIA</h2>
             </div>
+        <div class="formulario">
+           
             <br>
             <form name="dadosFornec" action="novoTipoProd.php" method="post">
                 <table>
@@ -48,11 +49,7 @@ if ($_SESSION['tipoUsuario'] == 1) {
                             <div class="alinha"><input type="text" size="20" id="descricao" name="descricao"
                             required>&nbsp;&nbsp;&nbsp;</div>
 
-                             </td>
-
-        
-
-       
+                             </td>       
         </tr>
         </table>
         <br>
@@ -67,7 +64,9 @@ if ($_SESSION['tipoUsuario'] == 1) {
     </body>
     
     <?php
-}
+}else if ($_SESSION['tipoUsuario'] == 3){
+    echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='listaTipoProd.php'</script>";
+} else header("location: ../usuarioNaoLogado.php");
 ?>
 
 </html>

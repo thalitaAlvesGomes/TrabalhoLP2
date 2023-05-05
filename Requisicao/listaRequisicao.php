@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="CDTT">
-    <link rel="stylesheet" href="styleList.css">
+    <link rel="stylesheet" href="../estilos/requisicoes/listarReq.css">
     <title>Requisições</title>
 </head>
 
 
 <?php
 session_start();
-if ($_SESSION['tipoUsuario'] == 1) {
+if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2 ) {
 
     ?>
     <header class="cabecalho">
         <nav class="menuCabecalho">
-            <a class="back" href="../home/homePage.php">Voltar</a>
+            <a class="voltar" href="../home/homePage.php">Voltar</a>
             <p class="logo">estoque.com </p>
-            <a class="out" href="../Login/telaLogin.php">Sair</a>
+            <a class="sair" href="../Login/logout.php">Sair</a>
         </nav>
     </header>
 
@@ -40,11 +40,13 @@ if ($_SESSION['tipoUsuario'] == 1) {
                     <td class="coluna">
                         <p><b>Requerente</b></p>
                     </td>
+
+                    <?php if ($_SESSION['tipoUsuario'] == 1) { ?>
                     <td class="coluna">
                         <p><b>Outras Ações</b></p>
                     </td>
+                    <?php } ?>
                 </tr>
-
 
 
 
@@ -83,13 +85,18 @@ if ($_SESSION['tipoUsuario'] == 1) {
                         </td>";
                             ?>
                        
+
+                       <?php  if ($_SESSION['tipoUsuario'] == 1) { ?>
                         <td class="coluna">
                     
                         
-                        &nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
 
-                           <?php echo "<a href='excluirRequisicao.php?codRequisicao=$row[codRequisicao]'><button class='excluir' type='button'>Excluir</button></a>";?>
-
+                           <?php
+                          
+                           echo "<a href='excluirRequisicao.php?codRequisicao=$row[codRequisicao]'><button class='excluir' type='button'>Excluir</button></a>";
+                           }
+                           ?>
 
                         </td>
                     </tr>
@@ -102,15 +109,17 @@ if ($_SESSION['tipoUsuario'] == 1) {
 
 
                 <form method="get" action="requerir.php">
-                    <button class="newForn" >Nova Requisição</button>
+                    <button class="novaReq" >Nova Requisição</button>
                 </form>
 
 
     </body>
 
     <?php
-} // fim do if
-
+}else if ($_SESSION['tipoUsuario'] == 3){
+    echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='../home/homePage.php'</script>";
+    } else header("location: ../usuarioNaoLogado.php");
+      
 ?>
 
 </html>

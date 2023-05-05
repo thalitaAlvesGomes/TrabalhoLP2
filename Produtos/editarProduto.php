@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="cadProd.css">
+    <link rel="stylesheet" href="../estilos/produtos/cadProd.css">
     <title>Editar Produto</title>
 </head>
 
 <header class="topo">
 
     <nav class="menuCabecalho">
-        <a class="back" href="listarProdutos.php">Voltar</a>
+        <a class="voltar" href="listarProdutos.php">Voltar</a>
         <p class="logo">estoque.com </p>
-        <a class="out" href="../Login/telaLogin.php">Sair</a>
+        <a class="sair" href="../Login/logout.php">Sair</a>
     </nav>
 
 </header>
 <?php
 
 session_start();
-if ($_SESSION['tipoUsuario'] == 1) {
-    //pegar o idcodigo do registro a ser editado
+if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) {
+    //pegar o codigo do registro a ser editado
     if (isset($_GET['codigoProd'])) {
         $var_codigoProd = $_GET['codigoProd'];
         try {
@@ -35,17 +35,19 @@ if ($_SESSION['tipoUsuario'] == 1) {
 
                 ?>
 
-                <div class="formulario">
-                    <div class="cadastroFornec">
-                        <h2>DADOS DO FORNECEDOR</h2>
+                <br>
+                <div class="cadastroProd">
+                        <h2>DADOS DO PRODUTO</h2>
                     </div>
+                <div class="formulario">
+                    
                     <br>
                     <form name="dadosProduto" action="atualizarProduto.php" method="post">
                         <table>
                             <tr>
                             <td>
                             <div class="nomecam"><label for="codigoProd">Código do Produto &nbsp;</label></div>
-                            <div class="alinha"><input type="text" name="codigoProd" value="<?php echo $linha['codigoProd']; ?>"> &nbsp;&nbsp;&nbsp;</div>
+                            <div class="alinha"><input type="text" name="codigoProd" value="<?php echo $linha['codigoProd']; ?>" > &nbsp;&nbsp;&nbsp;</div>
                         
                             </td>
 
@@ -136,12 +138,12 @@ if ($_SESSION['tipoUsuario'] == 1) {
             die("Erro: <code>" . $erro->getMessage() . "</code>");
         }
     } else {
-        echo "<p>Selecione um registro,
-    clique <a href='listarProdutos.php'>aqui</a></p>";
+        echo "<script>alert('Nenhum produto selecionado, por favor selecione um registro válido'); window.location.href='listarProdutos.php'</script>";
     }
-} else
-    echo "<p>Você não tem permissão 
-para executar esta ação.</p>";
+
+}  else if ($_SESSION['tipoUsuario'] == 3){
+    echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='listarProdutos.php'</script>";
+} else header("location: ../usuarioNaoLogado.php");
 
 ?>
 

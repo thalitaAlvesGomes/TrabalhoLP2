@@ -17,13 +17,14 @@
         catch (PDOException $i)
         {
             //se houver exceção, exibe
-            die("Erro: Tipo de Produto não pode ser excluído pois está relacinado em algum cadastro de produto ou verifique <code>" . $i->getMessage() .  "</code>");
+            die("<script>alert('Erro: Essa categoria não pode ser excluída pois está relacinada em algum cadastro de produto, por favor verifique'); window.location.href='listaTipoProd.php'</script> <code>" . $i->getMessage() .  "</code>");
         }
+    } else {
+        echo "<script>alert('Nenhuma categoria selecionada, por favor selecione um registro válido'); window.location.href='listaTipoProd.php'</script>";
     }
-    //fim do if
-    
-}else
-echo "<p>Você não tem permissão 
-para executar esta ação.</p>";
+        
+} else if ($_SESSION['tipoUsuario'] == 2 || $_SESSION['tipoUsuario'] == 3){
+    echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='listaTipoProd.php'</script>";
+    } else header("location: ../usuarioNaoLogado.php");
     
     ?>

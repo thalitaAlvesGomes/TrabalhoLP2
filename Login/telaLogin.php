@@ -13,7 +13,7 @@
 <body>
     <header class="header">
         <nav>
-            <a class="logo" href="../LandigPage/index.php">estoque.com</a>
+            <a class="logo" href="../LandingPage/index.php">estoque.com</a>
         </nav>
     </header>
 
@@ -34,10 +34,8 @@
                 <input class="loginButton" type="submit" value="Entrar">
             </form>
 
-            <!-- <form method="post" action="../Login/validarLogin.php"> 
-                <input  class="loginButton" type="submit" value="Entrar">
-                <button class="loginButton" method="post" action="../validarLogin.php">Entrar</button> 
-            </form> -->
+                
+
         </div>
         <br>
 

@@ -1,7 +1,6 @@
 <?php
-   
     session_start();
-    if ($_SESSION['tipoUsuario'] == 1) {
+    if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) {
         if(isset($_POST['codigoProd'])&&
         isset($_POST['descricao'])&&
         isset($_POST['tipoProd']) &&
@@ -18,7 +17,7 @@
         require_once "../conexao.php";
         try
             {   
-                //vamos atualizar na tabela
+                //atualizando na tabela
                 $sql="update produtos set 
                     descricao='$var_descricao',
                     tipoProd='$var_tipoProd',
@@ -35,10 +34,12 @@
            
             die("Erro: <code>" . $i->getMessage() . "</code>");
         }
-    }
-
-    }else
-    echo "<p>Você não tem permissão 
-    para executar esta ação.</p>";
+    }else {
+        echo "<script>alert('Nenhum produto selecionado, por favor selecione um registro válido'); window.location.href='listarProdutos.php'</script>";
+           }
+           
+} else if ($_SESSION['tipoUsuario'] == 3){
+    echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='listarProdutos.php'</script>";
+} else header("location: ../usuarioNaoLogado.php");
    
     ?>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['tipoUsuario'] == 1) {
+if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2 ) {
     if (
         isset($_POST['produtoCod']) &&
         isset($_POST['quantidade']) &&
@@ -13,53 +13,62 @@ if ($_SESSION['tipoUsuario'] == 1) {
 
         require_once "../conexao.php";
         try {
-            //inserindo na tabela
-             
+            $conexao->beginTransaction(); // inicia a transação
+        
             $sql = "INSERT INTO requisicao (produtoCod, quantidade, userReq)  
-            SELECT rp.codigoProd, $var_quantidade, $var_userReq
-            FROM (
-                SELECT p.codigoProd, p.saldo
-                FROM produtos p
-                WHERE p.saldo >= $var_quantidade
-                FOR UPDATE
-            ) rp
-            WHERE rp.codigoProd = $var_produtoCod;
-            UPDATE produtos p
-            SET saldo = saldo - (
-            SELECT quantidade
-            FROM requisicao r
-            WHERE r.produtoCod = p.codigoProd
-            ORDER BY r.codRequisicao DESC
-            LIMIT 1
-            )
-            WHERE p.codigoProd = $var_produtoCod;
-            ";
-
+                    SELECT rp.codigoProd, $var_quantidade, $var_userReq
+                    FROM (
+                        SELECT p.codigoProd, p.saldo
+                        FROM produtos p
+                        WHERE p.saldo >= $var_quantidade
+                        FOR UPDATE
+                    ) rp
+                    WHERE rp.codigoProd = $var_produtoCod;
+                    ";
+        
             $query = $conexao->prepare($sql);
             $query->execute();
-            $rs = $conexao->lastInsertId()
-                or die(print_r("O produto informado não possui saldo disponível, por favor <a href='listarProdutos.php'>
-            verifique</a> e tente novamente. 
-            <br>
-            Clique aqui para voltar a <a href='requerir.php'>
-            Requisição</a> ", true));
-          
-
+            $rowCount = $query->rowCount();
+        
+            if ($rowCount > 0) { // se o insert foi realizado com sucesso
+                $sql = "UPDATE produtos p
+                        SET saldo = saldo - (
+                            SELECT quantidade
+                            FROM requisicao r
+                            WHERE r.produtoCod = p.codigoProd
+                            ORDER BY r.codRequisicao DESC
+                            LIMIT 1
+                        )
+                        WHERE p.codigoProd = $var_produtoCod;
+                        ";
+        
+                $query = $conexao->prepare($sql);
+                $query->execute();
+                $rowCount = $query->rowCount();
+        
+                if ($rowCount > 0) { // se o update foi realizado com sucesso
+                    $conexao->commit(); // finaliza a transação
+                    header("location: listaRequisicao.php");
+                } else {
+                    $conexao->rollBack(); // desfaz a transação
+                    die("<script>alert('Erro ao atualizar o saldo do produto. Tente novamente.'); window.location.href='requerir.php'</script>");
+                }
+            } else {
+                $conexao->rollBack(); // desfaz a transação
+                die("<script>alert('O produto informado não possui saldo suficiente, por favor verifique e tente novamente.'); window.location.href='listaRequisicao.php'</script>");
+            }
         } catch (PDOException $i) {
             //se houver exceção, exibe
-
+            $conexao->rollBack(); // desfaz a transação
             die("Erro: <code>" . $i->getMessage() . "</code>");
-
         }
         header("location: listaRequisicao.php");
     }
     //fim do if
     else {
-        echo "<p>Preencha o <a href='requerir.php'>
-        Formulário</a></p>";
+        echo "<script>alert('Por favor, preencha o formulário de Requisição'); window.location.href='requerir.php'</script>";
     }
-} else
-    echo "<p>Você não tem permissão para executar esta ação.
-     Faça login para realizar esta ação. <a href='../Login/telaLogin.php'>Fazer Login</a></p>";
-
+} else if ($_SESSION['tipoUsuario'] == 3){
+    echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='../home/homePage.php'</script>";
+} else header("location: ../usuarioNaoLogado.php");
 ?>

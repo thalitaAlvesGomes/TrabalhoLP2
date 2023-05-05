@@ -16,23 +16,6 @@
 
 	insert into usuarios (nome, email, username, senha, status, tipoUsuario) values ('Administrador', 'admin@admin.com', 'admin', '123admin', 1, 1);
 
-
-	create table Tipo_Produto
-	(
-		codigo int(5) not null primary key,
-		descricao varchar(20) not null
-	);
-
-	create table Produtos 
-	(
-		codigoProd int not null primary key auto_increment,
-		descricao varchar(20) not null,
-		tipoProd int(5) not null,
-		unidade varchar(5) not null,
-		saldo decimal(10,2)    null,
-		foreign key (tipoProd) references Tipo_Produto(codigo)    
-	);
-
 	CREATE TABLE Fornecedores
 	(
 		codigo int not null PRIMARY key AUTO_INCREMENT,
@@ -42,49 +25,37 @@
 		endereco varchar(100) not null
 	);
 
-	create TABLE Cotacao
+	create table Tipo_Produto
 	(
-		codigo int not null PRIMARY key AUTO_INCREMENT,
-		codFornecedor int not null,
-		status int not null,
-		constraint fk_codForn foreign key (codFornecedor) REFERENCES Fornecedores(codigo)
-		-- constraint chk_status check (status in(1,2))
+		codigo varchar(7) not null primary key,
+		descricao varchar(20) not null
 	);
+    
+    insert into Tipo_Produto values
+    ('PA','Produto Acabado'),
+    ('MC','Material de Consumo'),
+    ('MP','Matéria Prima'),
+    ('EM','Embalagem');
+    
 
-	CREATE TABLE Item_Cotacao
+	create table Produtos 
 	(
-		item int not null AUTO_INCREMENT,
-		codCotacao int not null,
-		codProduto int not null,
-		qtd int not null,
-		preco decimal(10,2) not null,
-		totalItem decimal(10,2) not null,
-		PRIMARY KEY (item, codCotacao),
-		constraint fk_codCotacao FOREIGN KEY (codCotacao) REFERENCES Cotacao(codigo),
-		constraint fk_prod FOREIGN KEY (codProduto) REFERENCES produtos(codigoProd)
+		codigoProd int not null primary key auto_increment,
+		descricao varchar(20) not null,
+		tipoProd varchar(7) not null,
+        codFornecedor int not null,
+		unidade varchar(5) not null,
+		saldo decimal(10,2)    null,
+		constraint fk_tipoProd foreign key (tipoProd) references Tipo_Produto(codigo),
+        constraint fk_codForn foreign key (codFornecedor) REFERENCES Fornecedores(codigo)
 	);
-
-	create TABLE Pedidos
-	(
-		codPedido int not null PRIMARY key AUTO_INCREMENT,
-		codFornecedor int not null,
-		codCotacao int not null,
-		status int not null,
-		-- constraint chk_statusPed check (status in(1,2)),
-		constraint fk_codFor FOREIGN KEY (codFornecedor) REFERENCES Fornecedores(codigo),
-		constraint fk_cotacao FOREIGN KEY (codCotacao) REFERENCES Cotacao(codigo)
-	);
-
-	CREATE TABLE Item_Pedido
-	(
-		itemPedido int not null AUTO_INCREMENT,
-		codPedido int not null,
-		codProduto int not null,
-		qtd int not null,
-		preco decimal(10,2) not null,
-		totalItem decimal(10,2) not null,
-		PRIMARY KEY (itemPedido, codPedido),
-		constraint fk_forn FOREIGN KEY (codPedido) REFERENCES Pedidos(codPedido),
-		constraint fk_produto FOREIGN KEY (codProduto) REFERENCES produtos(codigoProd)
-	);
-
+    
+    create table Requisicao 
+    (
+    	codRequisicao int not null primary key AUTO_INCREMENT,
+        produtoCod int not null,
+        quantidade decimal(10,2) not null,
+        userReq int not null,
+        constraint fk_produtoCod foreign key (produtoCod) references Produtos(codigoProd),
+        constraint fk_userReq foreign key (userReq) REFERENCES Usuarios(id)
+    );

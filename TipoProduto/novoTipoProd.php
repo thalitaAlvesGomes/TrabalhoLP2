@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['tipoUsuario'] == 1) {
+if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) {
     if (
         isset($_POST['codigo']) &&
         isset($_POST['descricao'])
@@ -28,11 +28,9 @@ if ($_SESSION['tipoUsuario'] == 1) {
     }
     //fim do if
     else {
-        echo "<p>Preencha o <a href='cadastroTipoProd.php'>
-        Formulário</a></p>";
+        echo "<script>alert('Por favor, preencha o formulário de Cadastro de Categoria'); window.location.href='cadastroTipoProd.php'</script>";
     }
-} else
-    echo "<p>Você não tem permissão para executar esta ação.
-     Faça login para realizar esta ação. <a href='../Login/telaLogin.php'>Fazer Login</a></p>";
-
+} else if ($_SESSION['tipoUsuario'] == 3){
+    echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='listaTipoProd.php'</script>";
+} else header("location: ../usuarioNaoLogado.php");
 ?>

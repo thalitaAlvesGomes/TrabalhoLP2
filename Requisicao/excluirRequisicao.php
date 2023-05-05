@@ -19,11 +19,13 @@
             //se houver exceção, exibe
             die("Erro: <code>" . $i->getMessage() . "</code>");
         }
+    }else {
+        echo "<script>alert('Nenhuma requisição selecionada, por favor selecione um registro válido'); window.location.href='listaRequisição.php'</script>";
     }
-    //fim do if
     
-}else
-echo "<p>Você não tem permissão 
-para executar esta ação.</p>";
-    
+} else if ($_SESSION['tipoUsuario'] == 2){
+    echo "<script>alert('Você não tem permissão para realizar este tipo de ação'); window.location.href='listaRequisicao.php'</script>";
+    } else if ($_SESSION['tipoUsuario'] == 3){
+        echo "<script>alert('Você não tem permissão para realizar este tipo de ação'); window.location.href='../home/homePage.php'</script>";
+    } else header("location: ../usuarioNaoLogado.php");   
     ?>

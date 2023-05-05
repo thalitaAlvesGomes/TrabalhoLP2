@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="cadProd.css">
+    <link rel="stylesheet" href="../estilos/produtos/cadProd.css">
     <title>Cadastro de Produtos</title>
 </head>
 
 <?php
 session_start();
-if ($_SESSION['tipoUsuario'] == 1) {
+if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) {
     ?>
 
     <header class="topo">
 
         <nav class="menuCabecalho">
-            <a class="back" href="listarProdutos.php">Voltar</a>
+            <a class="voltar" href="listarProdutos.php">Voltar</a>
             <p class="logo">estoque.com </p>
-            <a class="out" href="../Login/telaLogin.php">Sair</a>
+            <a class="sair" href="../Login/logout.php">Sair</a>
         </nav>
 
     </header>
@@ -27,10 +27,11 @@ if ($_SESSION['tipoUsuario'] == 1) {
     <body>
 
         <br>
-        <div class="formulario">
-            <div class="cadastroProd">
+        <div class="cadastroProd">
                 <h2>DADOS DO PRODUTO</h2>
             </div>
+        <div class="formulario">
+            
             <br>
             <form name="dadosProd" action="novoProduto.php" method="post">
                 <table>
@@ -38,7 +39,7 @@ if ($_SESSION['tipoUsuario'] == 1) {
 
                         <td>
                             <div class="nomecam"><label for="descricao">Descrição&nbsp;</label></div>
-                            <div class="alinha"><input type="text" maxlength="100" size="90" id="descricao" name="descricao"
+                            <div class="alinha"><input type="text" maxlength="100" size="45" id="descricao" name="descricao"
                                     required>&nbsp;&nbsp;&nbsp;<br>
                             </div>
                         </td>
@@ -105,10 +106,6 @@ if ($_SESSION['tipoUsuario'] == 1) {
                 </table>
                 <br>
 
-
-
-
-
                 <input type="submit" id="confirm" value="Confirmar">
 
 
@@ -119,7 +116,9 @@ if ($_SESSION['tipoUsuario'] == 1) {
     </body>
 
     <?php
-}
+} else if ($_SESSION['tipoUsuario'] == 3){
+    echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='listarProdutos.php'</script>";
+} else header("location: ../usuarioNaoLogado.php");
 ?>
 
 </html>

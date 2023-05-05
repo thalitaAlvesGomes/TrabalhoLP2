@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylecadTipo.css">
+    <link rel="stylesheet" href="../estilos/tipoProduto/cadTipoProd.css">
     <title>Editar Categoria</title>
 </head>
 
 <header class="topo">
 
 <nav class="menuCabecalho">
-    <a class="back" href="listaTipoProd.php">Voltar</a>
+    <a class="voltar" href="listaTipoProd.php">Voltar</a>
     <p class="logo">estoque.com </p>
-    <a class="out" href="../Login/telaLogin.php">Sair</a>
+    <a class="sair" href="../Login/logout.php">Sair</a>
 </nav>
 
 </header>
 
 <?php
 session_start();
-if ($_SESSION['tipoUsuario'] == 1) {
+if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) {
 
-
+//pegar o codigo do registro a ser editado
 if(isset($_GET['codigo'])) {
     $var_codigo = $_GET['codigo'];
     try{
@@ -36,11 +36,12 @@ if(isset($_GET['codigo'])) {
            
     ?>
 
-
-<div class="formulario">
-            <div class="cadastro"> 
+            <br>
+            <div class="cadastroTipoProd"> 
                 <h2>TIPO DE PRODUTO</h2>
             </div>
+    <div class="formulario">
+            
             <br>
             <form name="dados" action="alterarTipoProd.php" method="post">
             <table>
@@ -48,7 +49,7 @@ if(isset($_GET['codigo'])) {
 
                         <td>
                             <div class="nomecam"><label for="codigo">Código &nbsp;</label></div>
-                            <div class="alinha"><input type="text" disable name="codigo" value="<?php echo $row['codigo'];?>"> &nbsp;&nbsp;&nbsp;</div>
+                            <div class="alinha"><input type="text" name="codigo" value="<?php echo $row['codigo'];?>"> &nbsp;&nbsp;&nbsp;</div>
                         
         </td>
         <td>
@@ -74,14 +75,12 @@ if(isset($_GET['codigo'])) {
         die("Erro: <code>" . $erro->getMessage() . "</code>");
     }
 
-} ?>
-
-
-
-
-
-    <?php
-}//fim da session tipoUsuario
+    } else {
+        echo "<script>alert('Nenhuma categoria selecionada, por favor selecione um registro válido'); window.location.href='listaTipoProd.php'</script>";
+    }
+} else if ($_SESSION['tipoUsuario'] == 3){
+    echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='listaTipoProd.php'</script>";
+} else header("location: ../usuarioNaoLogado.php");
 ?>
 
 </html>

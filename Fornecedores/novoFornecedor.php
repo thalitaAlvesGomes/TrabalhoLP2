@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['tipoUsuario'] == 1) {
+if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2 ) {
     if (
         isset($_POST['razaoSocial']) &&
         isset($_POST['cnpj']) &&
@@ -29,14 +29,11 @@ if ($_SESSION['tipoUsuario'] == 1) {
             die("Erro: <code>" . $i->getMessage() . "</code>");
         }
         header("location: listaForn.php");
-    }
-    //fim do if
-    else {
-        echo "<p>Preencha o <a href='CadastroFor.php'>
-        Formulário</a></p>";
-    }
-} else
-    echo "<p>Você não tem permissão para executar esta ação.
-     Faça login para realizar esta ação. <a href='../Login/telaLogin.php'>Fazer Login</a></p>";
+    } else {
+        echo "<script>alert('Por favor, preencha o formulário de Cadastro de Fornecedor'); window.location.href='CadastroFor.php'</script>";
+    } 
+} else if ($_SESSION['tipoUsuario'] == 3){
+    echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='listaForn.php'</script>";
+} else header("location: ../usuarioNaoLogado.php");
 
-?>
+    ?>

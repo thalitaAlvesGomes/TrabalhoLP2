@@ -13,19 +13,23 @@ if (isset($_POST['username']) && isset($_POST['senha'])) {
     //require_once("/trabalhoLP2/conexao.php");
     $resultado = $conexao->query($sql);
     $dados = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($dados)) {
+        // se o array de dados estiver vazio, exibe um alerta
+        echo "<script>alert('Usuário ou senha incorretos. Tente novamente.'); window.location.href='telaLogin.php'</script>";
+    } else {
+
     foreach ($dados as $linha) {
-        //se existir, mensagem Ok
-        //echo "Acesso verificado.";
+
         $_SESSION['usuarioLogado'] = true;
         $_SESSION['idUsuario'] = $linha['id'];
         $_SESSION['nomeUsuario'] = $linha['nome'];
         $_SESSION['tipoUsuario'] = $linha['tipoUsuario'];
+        $_SESSION['statusUsuario'] = $linha['status'];
         header("location:../home/homePage.php");
     }
+} 
 
-
-} else {
-    echo "não deu certo...";
 }
 
 ?>

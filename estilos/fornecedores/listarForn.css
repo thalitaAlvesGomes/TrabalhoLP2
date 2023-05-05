@@ -22,14 +22,14 @@
         gap: 300px;
     }
 
-    .back {
+    .voltar {
         font-family: 'Sarala', sans-serif;
         font-size: 18px;
         font-weight: 400;
         color: #FFF2E7;
     }
 
-    .out  {
+    .sair  {
         font-family: 'Sarala', sans-serif;
         font-size: 18px;
         font-weight: 400;
@@ -73,7 +73,6 @@
         font-family: 'Sarala', sans-serif;  
         font-size: 14px;
         padding: 10px 15px;
-        border: solid 1px rgb(0, 0, 0);
         text-align: center; 
     } 
 
@@ -92,8 +91,10 @@
 
     .editar{
         font-family: 'Sarala', sans-serif;
-        color: blue;
-            
+        background-color: blue;
+    }
+    .editar:hover{
+        background-color: rgb(0, 13, 193);
 
     }
 
@@ -102,7 +103,13 @@
         background-color: red; 
         
     }
-    .newForn{
+    .excluir:hover{
+        background-color: rgb(220, 0, 0);
+    
+
+    }
+    
+    .novoForn{
         font-family: 'Sarala', sans-serif;  
         font-size: 12px;
         background-color: rgba(33, 43, 181, 0.781);
@@ -117,7 +124,12 @@
         margin-left: 85%;
         margin-block-start: 2%;
         margin-block-end: 2%;
-    
+           
+    }
+
+    .novoForn:hover{
+        background-color: rgba(17, 26, 157, 0.781);
+
     }
 
 

@@ -1,7 +1,7 @@
 <?php
     
 session_start();
-if ($_SESSION['tipoUsuario'] == 1) {
+if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) {
     if (
         isset($_POST['descricao']) &&
         isset($_POST['tipoProd'] ) &&
@@ -18,7 +18,7 @@ if ($_SESSION['tipoUsuario'] == 1) {
         
         require_once "../conexao.php";
         try {   
-            //vamos inserir na tabela
+            //inseririndo na tabela
             $sql = "insert into produtos (descricao,tipoProd,codFornecedor,saldo,unidade)
                 values ('$var_descricao','$var_tipoProd',
                 $var_codFornecedor,$var_saldo,'$var_unidade')";
@@ -37,11 +37,11 @@ if ($_SESSION['tipoUsuario'] == 1) {
     }
     //fim do if
     else {
-        echo "<h2>Preencha o <a href='CadProdutos.php'>
-        formulário</a></p>";
-    }
-}else
-echo "<p>Você não tem permissão 
-para executar esta ação.</p>";
+        echo "<script>alert('Por favor, preencha o formulário de Cadastro de Produtos'); window.location.href='CadProdutos.php'</script>";
+           }
+           
+} else if ($_SESSION['tipoUsuario'] == 3){
+    echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='listarProdutos.php'</script>";
+} else header("location: ../usuarioNaoLogado.php");
 
     ?>

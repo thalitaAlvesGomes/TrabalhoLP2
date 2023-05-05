@@ -6,7 +6,8 @@
     box-sizing: border-box;
     text-decoration: none;
 }
-.topo{
+
+.cabecalho{
     background-color: rgba(6, 68, 110, 0.39);
     display: flex;
     flex-direction: row;
@@ -14,27 +15,26 @@
     justify-content: space-around;
     padding: 24px;
     height: auto;
+}
 
-        
-    }
 .menuCabecalho {
     display: flex;
     gap: 300px;
 }
 
-.back {
+.voltar {
     font-family: 'Sarala', sans-serif;
     font-size: 18px;
     font-weight: 400;
     color: #FFF2E7;
 }
 
-.out  {
+.sair  {
     font-family: 'Sarala', sans-serif;
     font-size: 18px;
     font-weight: 400;
     color: #FFF2E7;
-   
+
 } 
 
 .logo{ 
@@ -44,82 +44,90 @@
     color: #FFF2E7;
 }
 
-
 body{
     background-image: radial-gradient(rgba(40, 147, 218, 0.801), rgba(8, 99, 160, 0.897));
     width: auto;
     height: auto;  
     margin-top: 0%;
-}    
-
+}
 
 form {
+    margin-top: 5%;
     align-items: center; 
     margin-left: 5%;
     font-size: 100%;
-    font-family: 'Sarala', sans-serif;  
-    font: bold;
-    color: rgb(255, 255, 255); 
-}
-
-.formulario{
-    margin-left: 20%;
-    font-size: 100%;
-    font-family: 'Sarala', sans-serif;  
-    font: bold;
-    color: rgb(255, 255, 255);
-    border: none;
-
-}
-input:focus, label:focus{
-    outline: none;
-}
-input{
-    
-    height: 25px;
-    border: none;
-    background-clip: border-box gray;
-    background-color: rgba(247, 247, 247, 0.459);
-    border-radius: 5px;
+    font-family: 'Sarala', sans-serif; 
+    color: black; 
+    font: bold;    
     
 }
-input::placeholder{
+
+table{
+    width: 95%;
     text-align: center;
-    color: rgba(48, 48, 48, 0.349);
+    
+    
 }
- input[type="submit"]{
+
+.coluna{
+    font-family: 'Sarala', sans-serif;  
+    font-size: 14px;
+    padding: 10px 15px;
+    text-align: center; 
+} 
+
+.linha{
+    background-color: #FFF2E7;
+}
+
+button{
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    margin: 3px;
+    padding: 10px 15px;
+}
+
+.editar{
+        font-family: 'Sarala', sans-serif;
+        background-color: blue;
+}
+.editar:hover{
+        background-color: rgb(0, 13, 193);
+
+}
+
+.excluir{
+        font-family: 'Sarala', sans-serif;
+        background-color: red; 
+        
+}
+.excluir:hover{
+        background-color: rgb(220, 0, 0);
+    
+
+}
+.novoUsuario{
     font-family: 'Sarala', sans-serif;  
     font-size: 12px;
-    color: #FFF2E7;
-    background-color: rgb(0, 80, 146);
+    background-color: rgba(33, 43, 181, 0.781);
+    color: #fff;
     border:none;
     border-radius: 10px;
-    height: 40px;
-    width: 80px;
+    height: 55px;
+    width: 120px;
     cursor: pointer;
     display: block;
     flex-direction: row;
+    margin-left: 85%;
     margin-block-start: 2%;
     margin-block-end: 2%;
-   
+
+}
+ .novoUsuario:hover{
+        background-color: rgba(17, 26, 157, 0.781);
+
  }
 
-.cadastroFornec {
 
-    text-align: center;
-    font-family: 'Sarala', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    color: #FFF2E7;
-}
-
-span {
-    color: rgb(226, 21, 21);
-    position: absolute;
-    font-size: 1.0rem;
-    font-family: 'Sarala', sans-serif;      
-}
-
-
-
-    

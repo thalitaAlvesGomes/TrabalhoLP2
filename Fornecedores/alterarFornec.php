@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if ($_SESSION['tipoUsuario'] == 1) {
+    if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) {
         if(isset($_POST['codigo'])&&
         isset($_POST['razaoSocial']) &&
         isset( $_POST['cnpj']) &&
@@ -15,7 +15,7 @@
         require_once "../conexao.php";
         try
             {   
-               
+                //atualizando na tabela
                 $sql="update fornecedores set 
                     razaoSocial ='$var_razao',
                     CNPJ ='$var_cnpj',
@@ -31,7 +31,12 @@
            
             die("Erro: <code>" . $i->getMessage() . "</code>");
         }
-    }
+    }else {
+        echo "<script>alert('Nenhum fornecedor selecionado, por favor selecione um registro válido'); window.location.href='listaForn.php'</script>";
+           }
     
-    }
+    }else if ($_SESSION['tipoUsuario'] == 3){
+        echo "<script>alert('Você não tem permissão para acessar esta página'); window.location.href='listaForn.php'</script>";
+    } else header("location: ../usuarioNaoLogado.php");
+    
     ?>

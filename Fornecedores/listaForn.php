@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="CDTT">
-    <link rel="stylesheet" href="style.css">
-    <title>Lista de Fornecedores</title>
+    <link rel="stylesheet" href="../estilos/fornecedores/listarForn.css">
+    <title>Fornecedores</title>
 </head>
 
 
 <?php
 session_start();
-if ($_SESSION['tipoUsuario'] == 1) {
-
+if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2 || $_SESSION['tipoUsuario'] == 3) {
     ?>
-    <header class="cabecalho">
+
+<header class="cabecalho">
         <nav class="menuCabecalho">
-            <a class="back" href="../home/homePage.php">Voltar</a>
+            <a class="voltar" href="../home/homePage.php">Voltar</a>
             <p class="logo">estoque.com </p>
-            <a class="out" href="../Login/telaLogin.php">Sair</a>
+            <a class="sair" href="../Login/logout.php">Sair</a>
         </nav>
     </header>
 
@@ -43,13 +43,13 @@ if ($_SESSION['tipoUsuario'] == 1) {
                     <td class="coluna">
                         <p><b>Endereço</b></p>
                     </td>
+
+                    <?php if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) { ?>
                     <td class="coluna">
                         <p><b>Outras Ações</b></p>
                     </td>
-
+                    <?php } ?>
                 </tr>
-
-
 
 
                 <?php
@@ -92,19 +92,21 @@ if ($_SESSION['tipoUsuario'] == 1) {
                         </td>";
                             ?>
 
+                        <?php if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) { ?>
+
                         <td class="coluna">
 
-                       
-
-                   
                         <?php
                         echo "<a href='editarFornec.php?codigo=$row[codigo]'> <button class='editar' type='button'>Editar</button></a>";
+                        }
                       ?>
 
                         &nbsp;&nbsp;&nbsp;
                        
                         <?php 
+                        if ($_SESSION['tipoUsuario'] == 1) { 
                         echo "<a href='excluirFornec.php?codigo=$row[codigo]'><button class='excluir' type='button'>Excluir</button></a>"; 
+                        }
                          ?>
 
 
@@ -117,17 +119,17 @@ if ($_SESSION['tipoUsuario'] == 1) {
 
                 ?>
 
-
+                <?php if ($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) { ?>
                 <form method="get" action="CadastroFor.php">
-                    <button class="newForn">Novo Fornecedor</button>
+                    <button class="novoForn">Novo Fornecedor</button>
                 </form>
-
+                <?php } ?>
 
     </body>
-
     <?php
-} // fim do if
-
+}  else header("location: ../usuarioNaoLogado.php");
 ?>
 
+    
+        
 </html>
